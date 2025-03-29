@@ -3,47 +3,50 @@
 LOGBOOK_PATH="/home/touchte-codjo/.logbook"
 
 if [ $# -lt 1 ]; then
-	echo "Expected syntax"
-	echo ""
-	echo "   logbook add  \"Title\" \"Description\" \"Filename\" "
+	echo "Expect command : [add] or [serve]"
+	echo "Usage :"
+	echo "   1) logbook add \"title\" \"description\" \"image.png\" "
+	echo "   2) logbook serve"
 elif [ $# -ge 1 ]; then
 	if [ "$1" = "add" ]; then
-		#echo "$0 $1"
-		# We ignore all 
+		# Minimum arguments requested : 3
 		if [ $# -ge 3 ]; then 
 			title=$2
 			description=$3
-			#filename=$4
-			filename=""
+			filename="" #for now
 			today_date=$(date "+%y-%m-%d")
 			instant=$(date "+%T")
-		
+	
+			# We expect the 4-th arg to be the filename.	
 			if [ $# -ge 4 ]; then	
 				filename=$4
 				if [ -f "$filename" ]; then
-					# Check if the repo of the day does not exist
+					# Check the existence of the repository of the day; if not create one
 					if [ ! -d "$LOGBOOK_PATH/src/img/$today_date" ]; then
 						mkdir -p "$LOGBOOK_PATH/src/img/$today_date"
 					fi
-					instant2=$(echo $instant | sed "s/:/-/g")
-					#cp $filename "$LOGBOOK_PATH/$today_date/$today_date-$instant2.png"
+					instant2=$(echo $instant | sed "s/:/-/g") # remplace ":" by "-" to better name a file
 					cp $filename "$LOGBOOK_PATH/src/img/$today_date/$today_date-$instant2.png"
+					# Above we still need to extract the real extension of the picture (.png, .jpg, etc...)
 				else 
-					echo "$filename is not a file (we also expect a *.png)"
+					echo "$filename is not a regular file (we also expect a *.png)"
 					filename=""
+					# This part really needs the comment above to be taken in consideration
 				fi
 			fi	
-			# Create the md file
+			# Create or fill the note of the day at the current the time
+			# If the journal of the day does not exit, create one !
 			if [ ! -f "$LOGBOOK_PATH/src/$today_date.md" ]; then
 				touch "$LOGBOOK_PATH/src/$today_date.md"
-				echo "# DATE --> $today_date" >> "$LOGBOOK_PATH/src/$today_date.md"
+				echo "# DATE → $today_date" >> "$LOGBOOK_PATH/src/$today_date.md"
 				echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
 				# Update the SUMMARY.md file
 				echo " -[$today_date](./$today_date.md)" >> "$LOGBOOK_PATH/src/SUMMARY.md"
+				# Come back here later to use the sed command line
 			fi
+			# Fill the journal of the day
 			echo "### ($today_date $instant) $title" >> "$LOGBOOK_PATH/src/$today_date.md"
 			echo "$description" >> "$LOGBOOK_PATH/src/$today_date.md"
-			# test if filename is not empty
 			if [ ! -z "$filename" ]; then
 				echo "![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png)" >> "$LOGBOOK_PATH/src/$today_date.md"
 			fi
@@ -51,6 +54,7 @@ elif [ $# -ge 1 ]; then
 
 		else 
 			echo "Expect at least 2 arguments."
+			echo "Type lobbook help"
 		fi
 	elif [ "$1" = "serve" ]; then
 		mdbook serve $LOGBOOK_PATH --open
