@@ -40,18 +40,18 @@ elif [ $# -ge 1 ]; then
 				touch "$LOGBOOK_PATH/src/$today_date.md"
 				echo "# DATE → $today_date" >> "$LOGBOOK_PATH/src/$today_date.md"
 				echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
-				# Update the SUMMARY.md file
-				echo " -[$today_date](./$today_date.md)" >> "$LOGBOOK_PATH/src/SUMMARY.md"
-				# Come back here later to use the sed command line
+				#-- Update the SUMMARY.md file --
+				sed "7i\\[$today_date](./$today_date.md)\n" >> tmp_summary
+				mv tmp_summary "$LOGBOOK_PATH/src/SUMMARY.md"
 			fi
-			# Fill the journal of the day
-			echo "### ($today_date $instant) $title" >> "$LOGBOOK_PATH/src/$today_date.md"
-			echo "$description" >> "$LOGBOOK_PATH/src/$today_date.md"
+			#-- Fill the journal of the day --
+			# If filename is not empty
 			if [ ! -z "$filename" ]; then
-				echo "![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png)" >> "$LOGBOOK_PATH/src/$today_date.md"
+				sed "3i\\### ($today_date $instant) $title \n$description \n![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png) \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
+			else 
+				sed "3i\\### ($today_date $instant) $title \n$description \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
 			fi
-			echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
-
+			mv tmp_file "$LOGBOOK_PATH/src/$today_date.md"
 		else 
 			echo "Expect at least 2 arguments."
 			echo "Type lobbook help"
