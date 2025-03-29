@@ -1,0 +1,63 @@
+#!/bin/bash
+
+LOGBOOK_PATH="/home/touchte-codjo/.logbook"
+
+if [ $# -lt 1 ]; then
+	echo "Expected syntax"
+	echo ""
+	echo "   logbook add  \"Title\" \"Description\" \"Filename\" "
+elif [ $# -ge 1 ]; then
+	if [ "$1" = "add" ]; then
+		#echo "$0 $1"
+		# We ignore all 
+		if [ $# -ge 3 ]; then 
+			title=$2
+			description=$3
+			#filename=$4
+			filename=""
+			today_date=$(date "+%y-%m-%d")
+			instant=$(date "+%T")
+		
+			if [ $# -ge 4 ]; then	
+				filename=$4
+				if [ -f "$filename" ]; then
+					# Check if the repo of the day does not exist
+					if [ ! -d "$LOGBOOK_PATH/src/img/$today_date" ]; then
+						mkdir -p "$LOGBOOK_PATH/src/img/$today_date"
+					fi
+					instant2=$(echo $instant | sed "s/:/-/g")
+					#cp $filename "$LOGBOOK_PATH/$today_date/$today_date-$instant2.png"
+					cp $filename "$LOGBOOK_PATH/src/img/$today_date/$today_date-$instant2.png"
+				else 
+					echo "$filename is not a file (we also expect a *.png)"
+					filename=""
+				fi
+			fi	
+			# Create the md file
+			if [ ! -f "$LOGBOOK_PATH/src/$today_date.md" ]; then
+				touch "$LOGBOOK_PATH/src/$today_date.md"
+				echo "# DATE --> $today_date" >> "$LOGBOOK_PATH/src/$today_date.md"
+				echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
+				# Update the SUMMARY.md file
+				echo " -[$today_date](./$today_date.md)" >> "$LOGBOOK_PATH/src/SUMMARY.md"
+			fi
+			echo "### ($today_date $instant) $title" >> "$LOGBOOK_PATH/src/$today_date.md"
+			echo "$description" >> "$LOGBOOK_PATH/src/$today_date.md"
+			# test if filename is not empty
+			if [ ! -z "$filename" ]; then
+				echo "![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png)" >> "$LOGBOOK_PATH/src/$today_date.md"
+			fi
+			echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
+
+		else 
+			echo "Expect at least 2 arguments."
+		fi
+	elif [ "$1" = "serve" ]; then
+		mdbook serve $LOGBOOK_PATH --open
+	else
+		echo "Expect command : [add] or [serve]"
+		echo "Usage :"
+		echo "   1) logbook add \"title\" \"description\" \"image.png\" "
+		echo "   2) logbook serve"
+	fi
+fi
