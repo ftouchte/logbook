@@ -16,7 +16,6 @@ elif [ $# -ge 1 ]; then
 			filename="" #for now
 			today_date=$(date "+%y-%m-%d")
 			instant=$(date "+%T")
-	
 			# We expect the 4-th arg to be the filename.	
 			if [ $# -ge 4 ]; then	
 				filename=$4
@@ -33,15 +32,16 @@ elif [ $# -ge 1 ]; then
 					filename=""
 					# This part really needs the comment above to be taken in consideration
 				fi
-			fi	
+			fi
 			# Create or fill the note of the day at the current the time
 			# If the journal of the day does not exit, create one !
 			if [ ! -f "$LOGBOOK_PATH/src/$today_date.md" ]; then
 				touch "$LOGBOOK_PATH/src/$today_date.md"
 				echo "# DATE → $today_date" >> "$LOGBOOK_PATH/src/$today_date.md"
 				echo "" >> "$LOGBOOK_PATH/src/$today_date.md"
+				echo "" >> "$LOGBOOK_PATH/src/$today_date.md" # create the line 3
 				#-- Update the SUMMARY.md file --
-				sed "7i\\[$today_date](./$today_date.md)\n" >> tmp_summary
+				sed "7i\\[$today_date](./$today_date.md)\n" "$LOGBOOK_PATH/src/SUMMARY.md" >> tmp_summary
 				mv tmp_summary "$LOGBOOK_PATH/src/SUMMARY.md"
 			fi
 			#-- Fill the journal of the day --
