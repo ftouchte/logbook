@@ -58,6 +58,15 @@ elif [ $# -ge 1 ]; then
 		fi
 	elif [ "$1" = "serve" ]; then
 		mdbook serve $LOGBOOK_PATH --open
+	elif [ "$1" = "deploy" ]; then
+		current_dir="$(pwd)"
+		cd "$(which logbook)"
+		mdbook build
+		git add .
+		git commit -m "Deploy logbook"
+		git push
+		cd $current_dir
+		echo "\033[32m\Log Book deployed \033[0m"
 	else
 		echo "Expect command : [add] or [serve]"
 		echo "Usage :"
