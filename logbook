@@ -66,7 +66,7 @@ elif [ $# -ge 1 ]; then
 		git commit -m "Deploy logbook"
 		git push
 		cd $current_dir
-		echo -e "\033[32m\Log Book deployed \033[0m"
+		echo -e "\033[32mLog Book deployed \033[0m"
 	else
 		echo "Expect command : [add] or [serve]"
 		echo "Usage :"
