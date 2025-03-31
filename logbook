@@ -67,7 +67,7 @@ elif [ $# -ge 1 ]; then
 		cd $LOGBOOK_PATH
 		mdbook build
 		git add .
-		git commit -m "Deploy logbook"
+		git commit -m "Deploy logbook `date "+%D %T"`"
 		git push
 		cd $current_dir
 		echo -e "\033[32mLog Book deployed \033[0m"
