@@ -3,10 +3,14 @@
 LOGBOOK_PATH="/home/touchte-codjo/.logbook"
 
 if [ $# -lt 1 ]; then
-	echo "Expect command : [add] or [serve]"
+	echo "Expect command : [add] or [serve] or [deploy]"
 	echo "Usage :"
 	echo "   1) logbook add \"title\" \"description\" \"image.png\" "
+	echo "            ---> used to add new entry in the logbook"	
 	echo "   2) logbook serve"
+	echo "            ---> like \`mdbook serve\`, it gives a view of the logbook on a local serve"	
+	echo "   3) logbook deploy"
+	echo "            ---> send the current state of the log book on github, that's also update the online version of the logbook"	
 elif [ $# -ge 1 ]; then
 	if [ "$1" = "add" ]; then
 		# Minimum arguments requested : 3
@@ -68,9 +72,13 @@ elif [ $# -ge 1 ]; then
 		cd $current_dir
 		echo -e "\033[32mLog Book deployed \033[0m"
 	else
-		echo "Expect command : [add] or [serve]"
+		echo "Expect command : [add] or [serve] or [deploy]"
 		echo "Usage :"
 		echo "   1) logbook add \"title\" \"description\" \"image.png\" "
+	       	echo "            ---> used to add new entry in the logbook"	
 		echo "   2) logbook serve"
+	       	echo "            ---> like \`mdbook serve\`, it gives a view of the logbook on a local serve"	
+		echo "   3) logbook deploy"
+	       	echo "            ---> send the current state of the log book on github, that's also update the online version of the logbook"	
 	fi
 fi
