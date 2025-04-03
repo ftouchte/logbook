@@ -153,6 +153,19 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="date--25-04-03"><a class="header" href="#date--25-04-03">DATE → 25-04-03</a></h1>
+<h3 id="25-04-03-153844-implement-time2distance"><a class="header" href="#25-04-03-153844-implement-time2distance">(25-04-03 15:38:44) Implement time2distance</a></h3>
+<p>The implementation of the time to distance in coatjava is ongoing. Already done :</p>
+<ul>
+<li>Modification the AHDC::Hits banks
+<ul>
+<li>I added time = leadingEdgeTime - t0</li>
+<li>Now, doca refers to the time from time2distance calibration</li>
+<li>residual refers to distance from time2distance calibration minus the distance of closest approach computed at the Kalman Filter stage</li>
+</ul>
+</li>
+</ul>
+<h3 id="25-04-03-153719-pr-approved"><a class="header" href="#25-04-03-153719-pr-approved">(25-04-03 15:37:19) PR approved</a></h3>
+<p>The PR for the constant calibration loading has been approved. Compilation OK ! Now, need to check the execution on decoded files.</p>
 <h3 id="25-04-03-140222-pr-open"><a class="header" href="#25-04-03-140222-pr-open">(25-04-03 14:02:22) PR open</a></h3>
 <p>A new pull resquest is open to load calibration constants for AHDC and ATOF reconstruction.
 <img src="./img/25-04-03/25-04-03-14-02-22.png" alt="25-04-03-14-02-22.png" /></p>
