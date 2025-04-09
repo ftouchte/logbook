@@ -156,6 +156,17 @@
                         <h1 id="rg-l"><a class="header" href="#rg-l">RG-L</a></h1>
 <p>This is the logbook of Felix Touchte Codjo. It aims to capture all the instants of the ALERT experiment.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="date--25-04-08"><a class="header" href="#date--25-04-08">DATE → 25-04-08</a></h1>
+<h3 id="25-04-08-172309-state-of-ahdckftrack"><a class="header" href="#25-04-08-172309-state-of-ahdckftrack">(25-04-08 17:23:09) State of AHDC::KFTrack</a></h3>
+<p>Only contains x, y, z, px, py, pz. Need to add more information such as : deposited energy, track id (also in AHDC::Hits), p_drift, chi2, sum of residuals...
+<img src="./img/25-04-08/25-04-08-17-23-09.png" alt="25-04-08-17-23-09.png" /></p>
+<h3 id="25-04-08-172255-state-of-ahdctrack"><a class="header" href="#25-04-08-172255-state-of-ahdctrack">(25-04-08 17:22:55) State of AHDC::Track</a></h3>
+<p>Only contains x, y, z, px, py, pz. Need to add more information such as : deposited energy, track id (also in AHDC::Hits), p_drift, chi2, sum of residuals...
+<img src="./img/25-04-08/25-04-08-17-22-55.png" alt="25-04-08-17-22-55.png" /></p>
+<h3 id="25-04-08-155359-ahdckftrack-is-filled"><a class="header" href="#25-04-08-155359-ahdckftrack-is-filled">(25-04-08 15:53:59) AHDC::KFTrack is filled</a></h3>
+<p>I thought we add an issue with the two definition of Hit (ahdc.Hit and "KF.Hit"), but it's not. That's why the <strong>residual</strong> is filled. Useful command line :</p>
+<pre><code class="language-bash">hipo-utils -dump output5.hipo -e AHDC::KFTrack -b AHDC::Hits -wait 1 | more
+</code></pre>
+<p><img src="./img/25-04-08/25-04-08-15-53-59.png" alt="25-04-08-15-53-59.png" /></p>
 <h3 id="25-04-08-154700-ahdc-hitreader-issue-fixed"><a class="header" href="#25-04-08-154700-ahdc-hitreader-issue-fixed">(25-04-08 15:47:00) AHDC HitReader issue fixed</a></h3>
 <p>I add to modify the rec/ahdc/Banks/RecoBankWriter.java. The time attribut is now filled.
 <img src="./img/25-04-08/25-04-08-15-47-00.png" alt="25-04-08-15-47-00.png" /></p>
