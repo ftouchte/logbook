@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>25-04-08 - Log Book</title>
+        <title>25-04-09 - Log Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,40 +152,35 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="date--25-04-08"><a class="header" href="#date--25-04-08">DATE → 25-04-08</a></h1>
-<h3 id="25-04-08-172309-state-of-ahdckftrack"><a class="header" href="#25-04-08-172309-state-of-ahdckftrack">(25-04-08 17:23:09) State of AHDC::KFTrack</a></h3>
-<p>Only contains x, y, z, px, py, pz. Need to add more information such as : deposited energy, track id (also in AHDC::Hits), p_drift, chi2, sum of residuals...
-<img src="./img/25-04-08/25-04-08-17-23-09.png" alt="25-04-08-17-23-09.png" /></p>
-<h3 id="25-04-08-172255-state-of-ahdctrack"><a class="header" href="#25-04-08-172255-state-of-ahdctrack">(25-04-08 17:22:55) State of AHDC::Track</a></h3>
-<p>Only contains x, y, z, px, py, pz. Need to add more information such as : deposited energy, track id (also in AHDC::Hits), p_drift, chi2, sum of residuals...
-<img src="./img/25-04-08/25-04-08-17-22-55.png" alt="25-04-08-17-22-55.png" /></p>
-<h3 id="25-04-08-155359-ahdckftrack-is-filled"><a class="header" href="#25-04-08-155359-ahdckftrack-is-filled">(25-04-08 15:53:59) AHDC::KFTrack is filled</a></h3>
-<p>I thought we add an issue with the two definition of Hit (ahdc.Hit and "KF.Hit"), but it's not. That's why the <strong>residual</strong> is filled. Useful command line :</p>
-<pre><code class="language-bash">hipo-utils -dump output5.hipo -e AHDC::KFTrack -b AHDC::Hits -wait 1 | more
-</code></pre>
-<p><img src="./img/25-04-08/25-04-08-15-53-59.png" alt="25-04-08-15-53-59.png" /></p>
-<h3 id="25-04-08-154700-ahdc-hitreader-issue-fixed"><a class="header" href="#25-04-08-154700-ahdc-hitreader-issue-fixed">(25-04-08 15:47:00) AHDC HitReader issue fixed</a></h3>
-<p>I add to modify the rec/ahdc/Banks/RecoBankWriter.java. The time attribut is now filled.
-<img src="./img/25-04-08/25-04-08-15-47-00.png" alt="25-04-08-15-47-00.png" /></p>
-<h3 id="25-04-08-123514-ahdc-ccdb"><a class="header" href="#25-04-08-123514-ahdc-ccdb">(25-04-08 12:35:14) AHDC CCDB</a></h3>
-<p>The AHDC CCDB are well read
-<img src="./img/25-04-08/25-04-08-12-35-14.png" alt="25-04-08-12-35-14.png" /></p>
-<h3 id="25-04-08-123854-ahdc-hitreader"><a class="header" href="#25-04-08-123854-ahdc-hitreader">(25-04-08 12:38:54) AHDC HitReader</a></h3>
-<p>The doca and the time are normally computed.
-<img src="./img/25-04-08/25-04-08-12-38-54.png" alt="25-04-08-12-38-54.png" /></p>
-<h3 id="25-04-08-123318-ahdc-hitreader"><a class="header" href="#25-04-08-123318-ahdc-hitreader">(25-04-08 12:33:18) AHDC HitReader</a></h3>
-<p>In the AHDC::Hits bank, the <strong>time</strong> is not filled. I assume the KF Hit masks the Hit from HitReader. <strong>ISSUE TO BE FIXED !!!</strong>
-<img src="./img/25-04-08/25-04-08-12-33-18.png" alt="25-04-08-12-33-18.png" /></p>
+                        <h1 id="date--25-04-09"><a class="header" href="#date--25-04-09">DATE → 25-04-09</a></h1>
+<h3 id="25-04-09-154609-only-one-track-is-computed-in-ahdckftrack"><a class="header" href="#25-04-09-154609-only-one-track-is-computed-in-ahdckftrack">(25-04-09 15:46:09) Only one track is computed in AHDC::KFTrack</a></h3>
+<p>This an issue !
+<img src="./img/25-04-09/25-04-09-15-46-09.png" alt="25-04-09-15-46-09.png" /></p>
+<h3 id="25-04-09-150656-remove-redundant-track-id-in-ahdchits"><a class="header" href="#25-04-09-150656-remove-redundant-track-id-in-ahdchits">(25-04-09 15:06:56) Remove redundant track id in AHDC::Hits</a></h3>
+<p>The track id is the same for Track and KFTrack. So track_id_kf has been removed. The KF only recomputes some parameters of an existing Track.
+<img src="./img/25-04-09/25-04-09-15-06-56.png" alt="25-04-09-15-06-56.png" /></p>
+<h3 id="25-04-09-150126-add-a-specific-track-id-for-kftrack-in-ahdchits"><a class="header" href="#25-04-09-150126-add-a-specific-track-id-for-kftrack-in-ahdchits">(25-04-09 15:01:26) Add a specific track id for KFTrack in AHDC::Hits</a></h3>
+<p>Try two track id for Track and KFTrack
+<img src="./img/25-04-09/25-04-09-15-01-26.png" alt="25-04-09-15-01-26.png" /></p>
+<h3 id="25-04-09-125620-update-ahdckftrack-structure"><a class="header" href="#25-04-09-125620-update-ahdckftrack-structure">(25-04-09 12:56:20) Update AHDC::KFTrack structure</a></h3>
+<p>Do trackId in Track and KFTrack can be differents ?
+<img src="./img/25-04-09/25-04-09-12-56-20.png" alt="25-04-09-12-56-20.png" /></p>
+<h3 id="25-04-09-125604-update-ahdctrack-structure"><a class="header" href="#25-04-09-125604-update-ahdctrack-structure">(25-04-09 12:56:04) Update AHDC::Track structure</a></h3>
+<p>Do trackId in Track and KFTrack can be differents ?
+<img src="./img/25-04-09/25-04-09-12-56-04.png" alt="25-04-09-12-56-04.png" /></p>
+<h3 id="25-04-09-125439-update-ahdchits-structure"><a class="header" href="#25-04-09-125439-update-ahdchits-structure">(25-04-09 12:54:39) Update AHDC::Hits structure</a></h3>
+<p>I wonder if we need a trackId for each Track and KFTrack ?
+<img src="./img/25-04-09/25-04-09-12-54-39.png" alt="25-04-09-12-54-39.png" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="25-04-09.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="rg-l.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="25-04-07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="25-04-08.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -195,11 +190,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="25-04-09.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="rg-l.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="25-04-07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="25-04-08.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
