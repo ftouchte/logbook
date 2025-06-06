@@ -50,12 +50,46 @@ elif [ $# -ge 1 ]; then
 			fi
 			#-- Fill the journal of the day --
 			# If filename is not empty
-			if [ ! -z "$filename" ]; then
-				sed "3i\\### ($today_date $instant) $title \n$description \n![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png) \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
-			else 
-				sed "3i\\### ($today_date $instant) $title \n$description \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
+			#######################################################
+			entry_text="3i\\### ($today_date $instant) $title \n$description"
+			if [ $# -ge 4 ]; then
+				for nth in $(seq 4 $#); do
+					finename="$nth"
+					# extract the extension
+					splitted=echo "filename" | sed "s/\(.*\)\.\(.*\)/\1 \2/g";
+					name=""
+					extension=""
+					itr=0;
+					for word in $splitted; do
+						((itr++))
+						if [[ $itr == 1 ]]; then
+							name=$word
+						elif [[ $itr == 2 ]]; then
+							extension=$word
+						fi
+					done
+					if [ -f "$filename" ]; then
+						# Check the existence of the repository of the day; if not create one
+						if [ ! -d "$LOGBOOK_PATH/src/img/$today_date" ]; then
+							mkdir -p "$LOGBOOK_PATH/src/img/$today_date"
+						fi
+						instant2=$(echo $instant | sed "s/:/-/g") # remplace ":" by "-" to better name a file
+						cp $filename "$LOGBOOK_PATH/src/img/$today_date/$today_date-$instant2.$extension"
+						entry_text="$entry_text \n ![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.$extension)"
+					else 
+						echo "$filename is not a regular file (we also expect an extension: .png, .jpeg, ...)"
+					fi
+				done
 			fi
-			mv tmp_file "$LOGBOOK_PATH/src/$today_date.md"
+			sed "$entry_text" >> tmp_file
+			echo $tmp_file
+			#######################################################
+			#if [ ! -z "$filename" ]; then
+			#	sed "3i\\### ($today_date $instant) $title \n$description \n![$today_date-$instant2.png](./img/$today_date/$today_date-$instant2.png) \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
+			#else 
+			#	sed "3i\\### ($today_date $instant) $title \n$description \n" "$LOGBOOK_PATH/src/$today_date.md" >> tmp_file
+			#fi
+			#mv tmp_file "$LOGBOOK_PATH/src/$today_date.md"
 		else 
 			echo "Expect at least 2 arguments."
 			echo "Type lobbook help"
