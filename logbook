@@ -1,7 +1,16 @@
 #!/bin/bash
+#-----------------------------------------
+# Utility for quick note taking using 
+# mdbook. See usage below...
+#
+# @author ftouchte
+# @date June 6, 2025 (last modification)
+#-----------------------------------------
 
+# Define the logbook path
 LOGBOOK_PATH="/home/touchte-codjo/.logbook"
 
+# Print help if no arguments are provided
 if [ $# -lt 1 ]; then
 	echo "Expect command : [add] or [serve] or [deploy]"
 	echo "Usage :"
@@ -12,10 +21,41 @@ if [ $# -lt 1 ]; then
 	echo "   3) logbook deploy"
 	echo "            ---> send the current state of the log book on github, that's also update the online version of the logbook"	
 elif [ $# -ge 1 ]; then
+	# command add
 	if [ "$1" = "add" ]; then
-		# Minimum arguments requested : 3
-		if [ $# -ge 3 ]; then 
+		# Require at least a title 
+		if [ $# -ge 2 ]; then 
 			title=$2
+			description=""
+			# If no description provided, even no "", prompt the user to enter a description
+			if [ $# -le 2]; then
+				text=""
+				echo -n "> "
+				nlines=0
+				while read -r line; do
+					((nlines++))
+					if [[ $nlines == 1 ]]; then
+						text="$line"
+					else
+						text="$text\n$line"
+					fi
+					echo -e -n "> "
+				done
+				description=$text
+			else 
+				description=$3
+			fi
+			# Checking for attachements, typically pictures : png, jpeg, ...
+			if [ $# -ge 4 ]; then
+
+			fi
+
+###--------------------------------------------------------
+###
+###  Part below not checked
+###
+###
+###--------------------------------------------------------
 			description=$3
 			filename="" #for now
 			today_date=$(date "+%y-%m-%d")
